@@ -1,4 +1,4 @@
-#include <string.h>
+#include <string>
 #include <vector>
 #include <Eigen/Dense>
 #include <pcl/point_cloud.h>
