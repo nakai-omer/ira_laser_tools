@@ -12,9 +12,14 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 cmake_policy(SET CMP0074 NEW)
+if(NOT DEFINED CMAKE_SUPPRESS_DEVELOPER_WARNINGS)
+  set(CMAKE_SUPPRESS_DEVELOPER_WARNINGS 1 CACHE INTERNAL "No dev warnings")
+endif()
 
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclpy REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -80,6 +85,10 @@ install(TARGETS laserscan_multi_merger laserscan_virtualizer
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 install(DIRECTORY launch/
   DESTINATION share/${PROJECT_NAME}/launch
+)
+install(PROGRAMS
+  test/fake_pub.py
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 ament_export_dependencies(${dependencies})
